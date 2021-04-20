@@ -1,11 +1,9 @@
-import { Clock } from './components/clock'
+import { Timer } from './components/timer'
 
 function App() {
   return (
     <div className="App">
-      <h1>Current time: </h1>
-      <Clock />
-
+        <Timer time={12} step={1} />
     </div>
   );
 }

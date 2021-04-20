@@ -1,55 +1,28 @@
-import React from 'react';
+import React, {useState, useEffect} from "react";
 
-export const Timer = class Timer extends React.Component {
-constructor(props){
-      super(props)
-      this.state = {
-        time: 0,
-        start: 0,
-        isOn: false
+export const Timer = (props) => {
+  const [second, setSecond] = useState(props.time)
+  const [isStart, setStart] = useState(false)
+  useEffect (() => {
+    if (isStart) {
+          setTimeout(() => {
+      if (second > 0) {
+         setSecond(second - props.step)
       }
-      this.startTimer = this.startTimer.bind(this)
-      this.stopTimer = this.stopTimer.bind(this)
-      this.resetTimer = this.resetTimer.bind(this)
+    }, 1000);
     }
-    startTimer() {
-      this.setState({
-        time: this.state.time,
-        start: Date.now() - this.state.time,
-        isOn: true
-      })
-      this.timer = setInterval(() => this.setState({
-        time: Date.now() - this.state.start
-      }), 1);
-    }
-    stopTimer() {
-      this.setState({isOn: false})
-      clearInterval(this.timer)
-    }
-    resetTimer() {
-      this.setState({time: 0})
-    }
-    render() {
-      let start = (this.state.time === 0) ?
-        <button onClick={this.startTimer}>start</button> :
-        null
-      let stop = (this.state.isOn) ?
-        <button onClick={this.stopTimer}>stop</button> :
-        null
-      let reset = (this.state.time !== 0 && !this.state.isOn) ?
-        <button onClick={this.resetTimer}>reset</button> :
-        null
-      let resume = (this.state.time !== 0 && !this.state.isOn) ?
-        <button onClick={this.startTimer}>resume</button> :
-        null
-      return(
-        <div>
-          <h3>timer: {this.state.time}</h3>
-          {start}
-          {resume}
-          {stop}
-          {reset}
-        </div>
-      )
-    }
-  }
+  })
+
+const textButton = isStart ? 'Stop' : 'Start'
+
+  return (
+    <div className="App">
+      <button className="clock" onClick={() => setStart(!isStart)}>{textButton}</button>
+      <button onClick={() => {
+        setSecond(props.time);
+        setStart(true)
+      }}>Restart</button>
+      <h1>Time: {second === 0 ? 'Time is up' : second}</h1>
+    </div>
+  )
+}
