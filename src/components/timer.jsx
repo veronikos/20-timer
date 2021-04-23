@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from "react";
+import { Display } from "./Display";
 
 export const Timer = (props) => {
   const [second, setSecond] = useState(props.time)
@@ -17,12 +18,12 @@ const textButton = isStart ? 'Stop' : 'Start'
 
   return (
     <div className="App">
-      <button className="clock" onClick={() => setStart(!isStart)}>{textButton}</button>
-      <button onClick={() => {
+      <button className="btn" onClick={() => setStart(!isStart)}>{textButton}</button>
+      <button className="btn" onClick={() => {
         setSecond(props.time);
         setStart(true)
       }}>Restart</button>
-      <h1>Time: {second === 0 ? 'Time is up' : second}</h1>
+       {second === 0 ? 'Time is up' : <Display time={second} />}
     </div>
   )
 }
