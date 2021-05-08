@@ -3,7 +3,9 @@ import { Display } from "./Display";
 
 export const Timer = (props) => {
   const [second, setSecond] = useState(props.time)
-  const [isStart, setStart] = useState(false)
+  const [autoStart] = useState(props.autoStart)
+  const [isStart, setStart] = useState(autoStart)
+
   useEffect (() => {
     if (isStart) {
           setTimeout(() => {
