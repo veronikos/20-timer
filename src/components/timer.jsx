@@ -17,6 +17,7 @@ export const Timer = (props) => {
   })
 
 const textButton = isStart ? 'Stop' : 'Start'
+const disabledRestart = second === 0 ? false : true
 
   return (
     <div className="App">
@@ -24,7 +25,7 @@ const textButton = isStart ? 'Stop' : 'Start'
       <button className="btn" onClick={() => {
         setSecond(props.time);
         setStart(true)
-      }}>Restart</button>
+      }} disabled={disabledRestart}>Restart</button>
        {second === 0 ? 'Time is up' : <Display time={second} />}
     </div>
   )
